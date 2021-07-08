@@ -1,0 +1,54 @@
+{
+  "Comment": "State Machine to test dynamic step using step functions.",
+  "StartAt": "ChooseNextStep",
+  "States": {
+    "ChooseNextStep": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.workflow.next_step",
+          "StringEquals": "ZIPConsult",
+          "Next": "ZIPConsult"
+        },
+        {
+          "Variable": "$.workflow.next_step",
+          "StringEquals": "DummyLambda_2",
+          "Next": "DummyLambda_2"
+        },
+        {
+          "Variable": "$.workflow.next_step",
+          "StringEquals": "DummyLambda_1",
+          "Next": "DummyLambda_1"
+        }
+      ],
+      "Default": "SendSNS"
+    },
+    "ZIPConsult": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:000000000000:function:ZIPConsult",
+      "ResultPath": "$.workflow",
+      "Next": "ChooseNextStep"
+    },
+    "DummyLambda_1": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:000000000000:function:DummyLambda1",
+      "ResultPath": "$.workflow",
+      "Next": "ChooseNextStep"
+    },
+    "DummyLambda_2": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:000000000000:function:DummyLambda2",
+      "ResultPath": "$.workflow",
+      "Next": "ChooseNextStep"
+    },
+    "SendSNS": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn": "arn:aws:sns:us-east-1:000000000000:sns_topic",
+        "Message.$": "$"
+      },
+      "End": true
+    }
+  }
+}

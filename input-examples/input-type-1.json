@@ -1,0 +1,15 @@
+{
+    "workflow": {
+        "workflow_id": "64896023-f515-4fca-a53e-17655ec81ca1",
+        "steps": [
+            "DummyLambda_2",
+            "ZIPConsult",
+            "DummyLambda_1"         
+        ],
+        "next_step": "DummyLambda_2",
+        "data": {
+            "name": "Teste",
+            "zip": "01001000"
+        }
+    } 
+}
