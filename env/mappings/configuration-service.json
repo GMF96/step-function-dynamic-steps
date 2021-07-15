@@ -1,0 +1,42 @@
+{
+    "mappings": [
+        {
+            "request": {
+                "url": "/configuration/1234",
+                "method": "GET"
+            },
+            "response": {
+                "status": 200,
+                "jsonBody": {
+                    "steps": [
+                        "DummyLambda_2",
+                        "ZIPConsult",
+                        "DummyLambda_1"
+                    ]
+                },
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
+        {
+            "request": {
+                "url": "/configuration/4321",
+                "method": "GET"
+            },
+            "response": {
+                "status": 200,
+                "jsonBody": {
+                    "steps": [
+                        "ZIPConsult",
+                        "DummyLambda_1",
+                        "DummyLambda_2"
+                    ]
+                },
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        }
+    ]
+}
